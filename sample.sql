@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `reference`
 INSERT INTO `node` (`id`, `label`) VALUES
 (1, 'root'),
 (2, '国内航空券'),
-(3, '国外航空件'),
+(3, '国外航空券'),
 (4, 'ANA'),
 (5, 'JAL'),
 (6, 'ANA'),
