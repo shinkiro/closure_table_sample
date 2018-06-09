@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
 <body>
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -20,32 +23,19 @@ $(function () {
      });
 });
 </script>
-<style>
-.flex {
-    display: flex;
-}
-
-.flex section {
-    flex: 1;
-}
-
-.flex .col-right {
-    flex: 2;
-}
-</style>
-    
-<div class="flex">
-    <section>
+<div class="container">
+<div class="row">
+    <div class="col-md-3">
         <h3>tree</h3>
         <pre id="tree"></pre>
-    </section>
+    </div>
     
-    <section>
+    <div class="col-md-3">
         <h3>node data</h3>
-        <table>
+        <table class="table">
         <tr>
-            <th>id</th>
-            <th>label</th>
+            <th scope="col">id</th>
+            <th scope="col">label</th>
         </tr>
         {% for node in nodes %}
         <tr>
@@ -54,23 +44,50 @@ $(function () {
         </tr>
         {% endfor %}
         </table>
-    </section>
+    </div>
     
-    <section class="col-right">
+    <div class="col-md-6">
         <h3>ノード操作</h3>
         <h4>追加</h4>
         <form method="POST" action="/add">
-            <input name="label" type="text"> を ノード id <input name="id" type="text"> に <input type="submit" value="追加">
+            <input name="label" type="text"> を ノード id
+                <select name="id">
+                    {% for node in nodes %}
+                    <option value="{{node[0]}}">{{node[0]}}</option>
+                    {% endfor %}
+                </select>
+                に <input type="submit" value="追加">
         </form>
+
         <h4>移動</h4>
         <form method="POST" action="/move">
-            ノード id <input name="from_id" type="text"> をノード id <input name="to_id" type="text"> へ <input type="submit" value="移動">
+            ノード id
+                <select name="from_id">
+                    {% for node in nodes %}
+                    <option value="{{node[0]}}">{{node[0]}}</option>
+                    {% endfor %}
+                </select>
+            をノード id
+                <select name="to_id">
+                    {% for node in nodes %}
+                    <option value="{{node[0]}}">{{node[0]}}</option>
+                    {% endfor %}
+                </select>
+            へ <input type="submit" value="移動">
         </form>
+
         <h4>削除</h4>
         <form method="POST" action="/delete">
-            ノード id <input name="id" type="text"> を <input type="submit" value="削除">
+            ノード id
+                <select name="id">
+                    {% for node in nodes %}
+                    <option value="{{node[0]}}">{{node[0]}}</option>
+                    {% endfor %}
+                </select>
+            を <input type="submit" value="削除">
         </form>
-    </section>
+    </div>
+</div>
 </div>
 
 </body>
