@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function () {
+    $.ajax({
+        type: "GET",
+        url: "./get",
+        success: function(tree){
+            console.log(tree);
+            //var jsonBefore = JSON.parse(tree);
+            var json = JSON.stringify(tree, null, "    ");
+            console.log(json);
+            $('#tree').text(json);
+        }
+     });
+});
+</script>
+<style>
+.flex {
+    display: flex;
+}
+
+.flex section {
+    flex: 1;
+}
+
+.flex .col-right {
+    flex: 2;
+}
+</style>
+    
+<div class="flex">
+    <section>
+        <h3>tree</h3>
+        <pre id="tree"></pre>
+    </section>
+    
+    <section>
+        <h3>node data</h3>
+        <table>
+        <tr>
+            <th>id</th>
+            <th>label</th>
+        </tr>
+        {% for node in nodes %}
+        <tr>
+            <td>{{node[0]}}</td>
+            <td>{{node[1]}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+    </section>
+    
+    <section class="col-right">
+        <h3>ノード操作</h3>
+        <h4>追加</h4>
+        <form method="POST" action="/add">
+            <input name="label" type="text"> を ノード id <input name="id" type="text"> に <input type="submit" value="追加">
+        </form>
+        <h4>移動</h4>
+        <form method="POST" action="/move">
+            ノード id <input name="from_id" type="text"> をノード id <input name="to_id" type="text"> へ <input type="submit" value="移動">
+        </form>
+        <h4>削除</h4>
+        <form method="POST" action="/delete">
+            ノード id <input name="id" type="text"> を <input type="submit" value="削除">
+        </form>
+    </section>
+</div>
+
+</body>
+</html>
