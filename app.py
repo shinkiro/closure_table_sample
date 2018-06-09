@@ -27,7 +27,6 @@ def get():
     partial_tree = defaultdict(list)
     for row in results:
         partial_tree[row[1]].append(row[0])
-    print(partial_tree)
 
     # ツリーを組み上げる
     tree = build_tree(partial_tree, 1)
