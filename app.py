@@ -31,7 +31,7 @@ def get():
     # ツリーを組み上げる
     tree = build_tree(partial_tree, 1)
 
-    return jsonify({'tree': tree})
+    return jsonify({'root': tree})
 
 @app.route("/delete", methods=["POST"])
 def delete():
@@ -69,8 +69,6 @@ def add():
         parent_ids = []
         for row in rows:
             parent_ids.append(row[0])
-
-        assert parent_ids != [], "該当する親ノードがありません"
 
         # 親との関係を登録
         sql = "INSERT INTO reference(id, parent_id, `is_direct`) VALUES({}, {}, {});".format(new_node_id, node_id, 1)
