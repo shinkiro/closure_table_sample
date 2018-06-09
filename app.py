@@ -31,7 +31,7 @@ def get():
     # ツリーを組み上げる
     tree = build_tree(partial_tree, 1)
 
-    return jsonify({'root': tree})
+    return jsonify({'1': tree})
 
 @app.route("/delete", methods=["POST"])
 def delete():
